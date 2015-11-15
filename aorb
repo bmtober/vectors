@@ -1,0 +1,33 @@
+# Function to combine probabilities via OR logic for 
+# events that are not mutually exlusive.
+#
+# P(A || B) = P(A) + P(B) - P(A && B)
+
+syntax="
+Usage: aorb a b
+
+where
+  
+  a The probability of event A.
+
+  b The probability of event B.
+
+"
+
+if [[ ${#} -lt 2 ]]
+then
+  echo "${syntax}"
+  exit
+fi
+
+[[ 1 -eq $(bc -l <<< "${1} < 0") ]] && echo "a must be greater than zero." && exit 1
+[[ 1 -eq $(bc -l <<< "${2} < 0") ]] && echo "b must be greater than zero." && exit 1
+[[ 1 -eq $(bc -l <<< "${1} > 1") ]] && echo "a must be less than one." && exit 1
+[[ 1 -eq $(bc -l <<< "${2} > 1") ]] && echo "b must be less than one." && exit 1
+
+function aorb()
+{
+  echo $(bc -l <<< "$1 + $2 - $1*$2")
+}
+
+aorb $1 $2
