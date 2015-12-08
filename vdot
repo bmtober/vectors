@@ -1,0 +1,39 @@
+#!/bin/bash
+
+me=$(basename $0)
+
+usage="
+NAME
+  ${me} - Computes vector dot product.
+
+SYNOPSIS
+  ${me} vector1 vector2
+
+DESCRIPTION
+  ${me} computes the dot product between a pair of vectors.
+  The input vector files must be lines of ordered pairs,
+  sorted by the second element, and where the first element
+  of each pair is the magnitude, and the second element of
+  each pair is the dimension name.  This allows for arbitrary
+  vector spaces with points specified sparsely.
+
+  For example, a vector file may appear as follows:
+
+    3 x
+    4 y
+    5 z
+
+  for a vector with components x=3, y=4, and z=5.
+ 
+"
+
+if [[ ${#} -lt 2 ]]
+then
+  echo "${usage}"
+  exit
+fi
+
+join -j 2 "${1}" "${2}" | awk 'BEGIN {x=0};{x=x+$2*$3};END {print x}'
+
+
+
