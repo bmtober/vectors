@@ -1,0 +1,48 @@
+#!/bin/bash
+
+me=$(basename $0)
+
+usage="
+NAME
+  ${me} - Computes vector sum.
+
+SYNOPSIS
+  ${me} vector1 vector2
+
+DESCRIPTION
+  ${me} computes the of a pair of vectors.  The input vector
+  files must be lines of ordered pairs, sorted by the second
+  element, and where the first element of each pair is the
+  magnitude, and the second element of each pair is the
+  dimension name.  This allows for arbitrary vector spaces
+  with points specified sparsely.
+
+  For example, a vector file may appear as follows:
+
+    3 x
+    4 y
+    5 z
+
+  for a vector with components x=3, y=4, and z=5.
+ 
+"
+
+if [[ ${#} -lt 2 ]]
+then
+  echo "${usage}"
+  exit
+fi
+
+tmpfile="${me}.$$"
+
+mkfifo "${tmpfile}.1"
+mkfifo "${tmpfile}.2"
+mkfifo "${tmpfile}.3"
+
+trap 'rm "${tmpfile}."?' EXIT
+
+join -j2     ${1} ${2} | awk '{print $2+$3, $1}' > "${tmpfile}.1" &
+join -j2 -v1 ${1} ${2} | awk '{print $2, $1}'    > "${tmpfile}.2" &
+join -j2 -v2 ${1} ${2} | awk '{print $2, $1}'    > "${tmpfile}.3" &
+
+cat "${tmpfile}."{1,2,3} | sort -k2
