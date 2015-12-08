@@ -10,10 +10,10 @@ SYNOPSIS
   ${me} vector1 vector2
 
 DESCRIPTION
-  ${me} computes the of a pair of vectors.  The input vector
-  files must be lines of ordered pairs, sorted by the second
-  element, and where the first element of each pair is the
-  magnitude, and the second element of each pair is the
+  ${me} computes the sum of a pair of vectors.  The input
+  vector files must be lines of ordered pairs, sorted by the
+  second element, and where the first element of each pair is
+  the magnitude, and the second element of each pair is the
   dimension name.  This allows for arbitrary vector spaces
   with points specified sparsely.
 
