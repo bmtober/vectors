@@ -1,12 +1,5 @@
 #!/bin/bash
 
-# Computes the difference between a pair of vectors.
-# The input files must be lines of ordered pairs, sorted by
-# the second element, and where the first element of each pair
-# is the magnitude, and the second element of each pair is
-# the dimension.  This allows for arbitrary vector spaces with
-# points specified sparsely.
-
 me=$(basename $0)
 
 usage="
