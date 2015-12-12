@@ -1,0 +1,85 @@
+#!/bin/bash
+
+me=$(basename $0)
+
+usage="
+
+NAME
+  ${me} - Formats ordered pairs as dot source file.
+
+SYNOPSIS
+  ${me} [OPTIONS] datafile
+
+DESCRIPTION
+  ${me} Reads ordered pairs of items and outputs a file formated
+  in the Graphviz dot language to enable creation of a graphic
+  network diagram. If no input file is specified ${me} reads 
+  from standard input.
+
+  For example, a datafile may appear as follows:
+
+    b a
+    b d
+    a d
+    d c
+    a c
+    c e
+    d e
+
+OPTIONS
+  -h  Displays help message.
+
+"
+
+while [[ "${#}" -gt 0 ]]
+do
+  case "${1}" in
+    -h)
+      echo "${usage}"
+      exit
+      ;;
+    -*)
+      echo "Invalid option '${1}'"
+      exit
+      ;;
+  esac
+  infile="${1}"
+  shift
+done
+
+
+if [[ -z "${infile}" ]]
+then
+  infile=".$(basename ${0}).$$"
+  cat - > "${infile}"
+  trap 'rm "${infile}"' EXIT
+fi
+
+if [[ ! -f "${infile}" ]]
+then
+  echo "File '${infile}' not found."
+  exit
+fi
+
+tsort "${infile}" | awk '
+BEGIN {
+  print "digraph {"
+  print "overlap=scale;"
+}
+
+{printf("\"%s\" [label=\"%s\"];\n",$1,$1)}
+
+END{
+  print ""
+}
+'
+
+cat "${infile}" | awk '
+
+END {
+  print "}"
+}
+
+{printf("\"%s\" -> \"%s\";\n",$1,$2)}
+'
+
