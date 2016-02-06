@@ -56,6 +56,9 @@ n=$(wc -l "${infile}" | cut -d ' ' -f1)
 
 head -n $n "${infile}" | while read item
 do
-  tail -n $n "${infile}" | awk -v item="$item" '{printf("%s\t%s\n", item, $0)}'
+  tail -n $n "${infile}" | while read other 
+  do
+    printf "%s\t%s\n" "${item}" "${other}"
+  done
   (( n-- ))
 done
