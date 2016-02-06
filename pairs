@@ -1,0 +1,61 @@
+#!/bin/bash
+
+me=$(basename $0)
+
+usage="
+
+NAME
+  ${me} - Creates all pairs of input items. 
+
+SYNOPSIS
+  ${me} [OPTIONS] datafile
+
+DESCRIPTION
+  ${me} reads a list of items and outputs a list of all pairs of the items.
+
+
+OPTIONS
+  -h  Displays help message.
+
+"
+
+while [[ "${#}" -gt 0 ]]
+do
+  case "${1}" in
+    -h)
+      echo "${usage}"
+      exit
+      ;;
+    -*)
+      echo "Invalid option '${1}'"
+      exit
+      ;;
+  esac
+  infile="${1}"
+  shift
+done
+
+# If not input file specified, then read from stdin
+if [[ -z "${infile}" ]]
+then
+  infile=".$(basename ${0}).$$"
+  cat - > "${infile}"
+  trap 'rm "${infile}"' EXIT
+fi
+
+if [[ ! -f "${infile}" ]]
+then
+  echo "File '${infile}' not found."
+  exit
+fi
+
+# Number of items
+n=$(wc -l "${infile}" | cut -d ' ' -f1)
+
+(( n-- ))
+
+head -n $n "${infile}" | while read item
+do
+  tail -n $n "${infile}" | awk -v item="$item" '{printf("%s\t%s\n", item, $0)}'
+  (( n-- ))
+done
