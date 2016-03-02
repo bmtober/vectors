@@ -1,0 +1,41 @@
+#!/bin/bash
+
+me=$(basename $0)
+
+usage="
+
+NAME
+  ${me} - Prints a running total of a set of numbers. 
+
+SYNOPSIS
+  ${me} [OPTIONS] datafile
+  ${me} < datafile
+  cat datafile | ${me} 
+
+DESCRIPTION
+  ${me} Reads a list of numbers and adds them, displaying
+  the running total. Useful for balancing a checkbook.
+
+OPTIONS
+  -h  Displays help message.
+
+AUTHOR
+  Berend M. Tober
+
+"
+
+case "${1}" in
+  -h)
+    echo "${usage}"
+    exit
+    ;;
+  -*)
+    echo "Invalid option '${1}'"
+    exit
+    ;;
+esac
+
+cat "${@}" | awk '
+{s=s+$1}
+{printf("%3d\t% 8.2f\t% 9.2f\n",NR,$1,s)}
+'
