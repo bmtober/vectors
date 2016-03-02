@@ -1,0 +1,41 @@
+#!/bin/bash
+
+me=$(basename $0)
+
+usage="
+
+NAME
+  ${me} - Convert Unix time stamp (seconds since epoch) to 
+  date/time formatted as YYYY-MM-DD HH:MM:SS.
+
+SYNOPSIS
+  ${me} [OPTIONS] datafile
+  ${me} < datafile
+  cat datafile | ${me} 
+
+DESCRIPTION
+  ${me} Reads the input data and then outputs a date/time. 
+
+OPTIONS
+  -h  Displays help message.
+
+AUTHOR
+  Berend M. Tober
+
+"
+
+case "${1}" in
+  -h)
+    echo "${usage}"
+    exit
+    ;;
+  -*)
+    echo "Invalid option '${1}'"
+    exit
+    ;;
+esac
+
+cat "${@}" | while read n
+do
+  date -d "@${n}" "+%F %T"
+done  

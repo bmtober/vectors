@@ -9,6 +9,8 @@ NAME
 
 SYNOPSIS
   ${me} [OPTIONS] datafile
+  ${me} < datafile
+  cat datafile | ${me} 
 
 DESCRIPTION
   ${me} Reads ordered pairs of items and outputs a file formated
@@ -29,39 +31,28 @@ DESCRIPTION
 OPTIONS
   -h  Displays help message.
 
+AUTHOR
+  Berend M. Tober
+
 "
 
-while [[ "${#}" -gt 0 ]]
-do
-  case "${1}" in
-    -h)
-      echo "${usage}"
-      exit
-      ;;
-    -*)
-      echo "Invalid option '${1}'"
-      exit
-      ;;
-  esac
-  infile="${1}"
-  shift
-done
+case "${1}" in
+  -h)
+    echo "${usage}"
+    exit
+    ;;
+  -*)
+    echo "Invalid option '${1}'"
+    exit
+    ;;
+esac
+
+infile="${me}.$$"
+
+trap 'rm "${infile}"' EXIT
 
 
-if [[ -z "${infile}" ]]
-then
-  infile=".$(basename ${0}).$$"
-  cat - > "${infile}"
-  trap 'rm "${infile}"' EXIT
-fi
-
-if [[ ! -f "${infile}" ]]
-then
-  echo "File '${infile}' not found."
-  exit
-fi
-
-tsort "${infile}" | awk '
+cat "${@}" | tee "${infile}" | tsort | awk '
 BEGIN {
   print "digraph {"
   print "overlap=scale;"
