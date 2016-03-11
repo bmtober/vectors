@@ -18,16 +18,29 @@ DESCRIPTION
 
 OPTIONS
   -h  Displays help message.
+  -t  Suppress time output.
+  -d  Suppress date output.
 
 AUTHOR
   Berend M. Tober
 
 "
 
+unset notime nodate formatstr
+
+
 case "${1}" in
   -h)
     echo "${usage}"
     exit
+    ;;
+  -t)
+    notime=1
+    shift
+    ;;
+  -d)
+    nodate=1
+    shift
     ;;
   -*)
     echo "Invalid option '${1}'"
@@ -35,7 +48,12 @@ case "${1}" in
     ;;
 esac
 
+[[ -z "${nodate}" ]] && formatstr="${formatstr}%F"
+[[ -z "${notime}" ]] && formatstr="${formatstr} %T"
+
+formatstr="${formatstr#[[:space:]]}"
+
 cat "${@}" | while read n
 do
-  date -d "@${n}" "+%F %T"
+  date -d "@${n}" "+${formatstr}"
 done  
