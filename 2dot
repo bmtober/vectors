@@ -13,7 +13,7 @@ SYNOPSIS
   cat datafile | ${me} 
 
 DESCRIPTION
-  ${me} Reads ordered pairs of items and outputs a file formated
+  ${me} reads ordered pairs of items and outputs a file formated
   in the Graphviz dot language to enable creation of a graphic
   network diagram. If no input file is specified ${me} reads 
   from standard input.
