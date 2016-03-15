@@ -1,22 +1,31 @@
-# Function to combine probabilities via OR logic for 
-# events that are not mutually exlusive.
-#
-# P(A || B) = P(A) + P(B) - P(A && B)
 
-syntax="
-Usage: aorb a b
+me=$(basename $0)
 
-where
-  
-  a The probability of event A.
+usage="
 
-  b The probability of event B.
+NAME
+  ${me} - Probability of the union of two events. 
+
+SYNOPSIS
+  ${me} [OPTIONS] P(A) P(B) 
+
+DESCRIPTION
+  ${me} combine probabilities of independent events A and B, that
+  is, output is the probability of A or B or both.
+
+     P(A || B) = P(A) + P(B) - P(A && B)
+
+OPTIONS
+  -h  Displays help message.
+
+AUTHOR
+  Berend M. Tober
 
 "
 
 if [[ ${#} -lt 2 ]]
 then
-  echo "${syntax}"
+  echo "${usage}"
   exit
 fi
 
