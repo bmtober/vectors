@@ -41,10 +41,6 @@ while [ $# -gt 0 ]
       echo "${usage}"
       exit
       ;;
-    -n)
-      n="${2}"
-      shift 2
-      ;;
     -i)
       i="${2}"
       shift 2
