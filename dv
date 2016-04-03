@@ -1,0 +1,69 @@
+#!/bin/bash
+
+me=$(basename $0)
+
+usage="
+
+NAME
+  ${me} - Discounted value of a series of cash flows.
+
+SYNOPSIS
+  ${me} [OPTIONS] < datafile
+  cat datafile | ${me} [OPTIONS] 
+
+DESCRIPTION
+  ${me} computes the discounted value of a stream of cash flow pairs
+  (t,R) where the amount R of each pair is discounted for t time periods
+  compounded.
+
+OPTIONS
+  -h  Displays help message.
+
+  -i i
+    Interest rate per period. Defaults to 0.
+
+  -k k
+    Number of decimal digits precision to retain in calculations.
+    Defaults to 4.
+
+AUTHOR
+  Berend M. Tober
+
+"
+
+i=0
+k=4
+
+while [ $# -gt 0 ]
+  do
+  case "${1}" in
+    -h)
+      echo "${usage}"
+      exit
+      ;;
+    -n)
+      n="${2}"
+      shift 2
+      ;;
+    -i)
+      i="${2}"
+      shift 2
+      ;;
+    -k)
+      k="${2}"
+      shift 2
+      ;;
+    -*)
+      echo "Invalid option '${1}'"
+      exit
+      ;;
+  esac
+done  
+
+cat "${@}" | while read t r
+do
+  printf "%s\t" "${t}"  
+  dc -e "${k}k1 ${i}+${t}^${r}r/p"
+done
+
+
