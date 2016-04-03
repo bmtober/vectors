@@ -28,32 +28,38 @@ AUTHOR
 
 unset notime nodate formatstr
 
+infile="-"
 
-case "${1}" in
-  -h)
-    echo "${usage}"
-    exit
-    ;;
-  -t)
-    notime=1
-    shift
-    ;;
-  -d)
-    nodate=1
-    shift
-    ;;
-  -*)
-    echo "Invalid option '${1}'"
-    exit
-    ;;
-esac
+while [[ $# -gt 0 ]]
+do
+  case "${1}" in
+    -h)
+      echo "${usage}"
+      exit
+      ;;
+    -t)
+      notime=1
+      shift
+      ;;
+    -d)
+      nodate=1
+      shift
+      ;;
+    -*)
+      echo "Invalid option '${1}'"
+      exit
+      ;;
+  esac
+  infile="${1--}"
+  shift
+done  
 
 [[ -z "${nodate}" ]] && formatstr="${formatstr}%F"
 [[ -z "${notime}" ]] && formatstr="${formatstr} %T"
 
 formatstr="${formatstr#[[:space:]]}"
 
-cat "${@}" | while read n
+cat "${infile}" | while read n
 do
   date -d "@${n}" "+${formatstr}"
 done  

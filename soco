@@ -35,15 +35,22 @@ AUTHOR
 
 "
 
-case "${1}" in
-  -h)
-    echo "${usage}"
-    exit
-    ;;
-  -*)
-    echo "Invalid option '${1}'"
-    exit
-    ;;
-esac
+infile="-"
 
-cat "${@}" | sort | uniq -c | sort -n -r
+while [[ $# -gt 0 ]]
+do
+  case "${1}" in
+    -h)
+      echo "${usage}"
+      exit
+      ;;
+    -*)
+      echo "Invalid option '${1}'"
+      exit
+      ;;
+  esac
+  infile="${1--}"
+  shift
+done  
+
+cat "${infile}" | sort | uniq -c | sort -n -r

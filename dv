@@ -33,9 +33,10 @@ AUTHOR
 
 i=0
 k=4
+infile="-"
 
-while [ $# -gt 0 ]
-  do
+while [[ $# -gt 0 ]]
+do
   case "${1}" in
     -h)
       echo "${usage}"
@@ -54,9 +55,12 @@ while [ $# -gt 0 ]
       exit
       ;;
   esac
+
+  infile="${1--}"
+  shift
 done  
 
-cat "${@}" | while read t r
+cat "${infile}" | while read t r
 do
   printf "%s\t" "${t}"  
   dc -e "${k}k1 ${i}+${t}^${r}r/p"

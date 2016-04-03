@@ -36,23 +36,30 @@ AUTHOR
 
 "
 
-case "${1}" in
-  -h)
-    echo "${usage}"
-    exit
-    ;;
-  -*)
-    echo "Invalid option '${1}'"
-    exit
-    ;;
-esac
+infile="-"
 
-infile="${me}.$$"
+while [[ $# -gt 0 ]]
+do
+  case "${1}" in
+    -h)
+      echo "${usage}"
+      exit
+      ;;
+    -*)
+      echo "Invalid option '${1}'"
+      exit
+      ;;
+  esac
+  infile="${1--}"
+  shift
+done  
 
-trap 'rm "${infile}"' EXIT
+tmpfile="${me}.$$"
+
+trap 'rm "${tmpfile}"' EXIT
 
 
-cat "${@}" | tee "${infile}" | tsort | awk '
+cat "${infile}" | tee "${tmpfile}" | tsort | awk '
 BEGIN {
   print "digraph {"
   print "overlap=scale;"
@@ -65,7 +72,7 @@ END{
 }
 '
 
-cat "${infile}" | awk '
+cat "${tmpfile}" | awk '
 
 END {
   print "}"
