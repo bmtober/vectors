@@ -4,16 +4,19 @@ me=$(basename $0)
 usage="
 
 NAME
-  ${me} - Probability of the union of two events. 
+  ${me} - Probability of the union of events. 
 
 SYNOPSIS
-  ${me} [OPTIONS] P(A) P(B) 
+  ${me} [OPTIONS] datafile
+  ${me} < datafile [OPTIONS]
+  ${me} [OPTIONS] <<< "list"
+  cat datafile | ${me} [OPTIONS]
 
 DESCRIPTION
-  ${me} combine probabilities of independent events A and B, that
-  is, output is the probability of A or B or both.
+  ${me} combine probabilities of independent events A, B, C, ..., that
+  is, output is the probability of A or B or C or ..., or any combination:
 
-     P(A || B) = P(A) + P(B) - P(A && B)
+     P(A || B || C || ...) = P(A) + P( B || C || ...) - P(A && (B || C || ...))
 
 OPTIONS
   -h  Displays help message.
@@ -23,20 +26,27 @@ AUTHOR
 
 "
 
-if [[ ${#} -lt 2 ]]
-then
-  echo "${usage}"
-  exit
-fi
+infile="-"
 
-[[ 1 -eq $(bc -l <<< "${1} < 0") ]] && echo "a must be greater than zero." && exit 1
-[[ 1 -eq $(bc -l <<< "${2} < 0") ]] && echo "b must be greater than zero." && exit 1
-[[ 1 -eq $(bc -l <<< "${1} > 1") ]] && echo "a must be less than one." && exit 1
-[[ 1 -eq $(bc -l <<< "${2} > 1") ]] && echo "b must be less than one." && exit 1
+while [[ $# -gt 0 ]]
+do
+  case "${1}" in
+    -h)
+      echo "${usage}"
+      exit
+      ;;
+    -*)
+      echo "Invalid option '${1}'"
+      exit
+      ;;
+  esac
+  infile="${1--}"
+  shift
+done  
 
-function aorb()
-{
-  echo $(bc -l <<< "$1 + $2 - $1*$2")
-}
-
-aorb $1 $2
+cat "${infile}" | tr '[[:space:]]' '\n' | awk '
+  {a = a + $1 - a*$1};
+  END {
+    print a;
+  }
+'
