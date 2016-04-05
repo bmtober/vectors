@@ -8,6 +8,7 @@ NAME
   ${me} - Discounted value of a series of cash flows.
 
 SYNOPSIS
+  ${me} [OPTIONS] datafile
   ${me} [OPTIONS] < datafile
   cat datafile | ${me} [OPTIONS] 
 
@@ -60,10 +61,6 @@ do
   shift
 done  
 
-cat "${infile}" | while read t r
-do
-  printf "%s\t" "${t}"  
-  dc -e "${k}k1 ${i}+${t}^${r}r/p"
-done
-
-
+cat "${infile}" | awk -v i="$i" '
+  {print $1, $2/(1+i)^$1};
+'
