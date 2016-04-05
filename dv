@@ -23,17 +23,12 @@ OPTIONS
   -i i
     Interest rate per period. Defaults to 0.
 
-  -k k
-    Number of decimal digits precision to retain in calculations.
-    Defaults to 4.
-
 AUTHOR
   Berend M. Tober
 
 "
 
 i=0
-k=4
 infile="-"
 
 while [[ $# -gt 0 ]]
@@ -45,10 +40,6 @@ do
       ;;
     -i)
       i="${2}"
-      shift 2
-      ;;
-    -k)
-      k="${2}"
       shift 2
       ;;
     -*)
