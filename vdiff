@@ -33,11 +33,12 @@ then
   exit
 fi
 
+tmpfile=".${me}.$$"
 mkfifo "${tmpfile}.1"
 mkfifo "${tmpfile}.2"
 mkfifo "${tmpfile}.3"
 
-trap 'rm "${tmpfile}.1"' EXIT
+trap 'rm "${tmpfile}".[1,2,3]' EXIT
 
 join -j2     ${1} ${2} | awk '{print $2-$3, $1}' > "${tmpfile}.1" &
 join -j2 -v1 ${1} ${2} | awk '{print    $2, $1}' > "${tmpfile}.2" &
