@@ -1,0 +1,16 @@
+. assert
+
+echo "Testing dv"
+
+../dv -i 0.00416 data/dv.dat > results/dv.1
+../dv -i 0.00416 < data/dv.dat > results/dv.2
+cat data/dv.dat | ../dv -i 0.00416 > results/dv.3
+
+echo
+assert 'diff expected/dv.out results/dv.1 &> /dev/null'
+assert 'diff expected/dv.out results/dv.2 &> /dev/null'
+assert 'diff expected/dv.out results/dv.3 &> /dev/null'
+
+echo
+echo "PASS: ${success_count}"
+echo "FAIL: ${failure_count}"

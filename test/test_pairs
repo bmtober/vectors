@@ -1,0 +1,16 @@
+. assert
+
+echo "Testing pairs"
+
+../pairs data/pairs.dat > results/pairs.1
+../pairs < data/pairs.dat > results/pairs.2
+cat data/pairs.dat | ../pairs > results/pairs.3
+
+echo
+assert 'diff expected/pairs.out results/pairs.1 &> /dev/null'
+assert 'diff expected/pairs.out results/pairs.2 &> /dev/null'
+assert 'diff expected/pairs.out results/pairs.3 &> /dev/null'
+
+echo
+echo "PASS: ${success_count}"
+echo "FAIL: ${failure_count}"
