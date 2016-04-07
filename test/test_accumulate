@@ -1,4 +1,6 @@
-. assert
+. assertion
+
+[[ -d results ]] || mkdir results
 
 echo "Testing accumulate"
 ../accumulate data/accumulate.dat > results/accumulate.1

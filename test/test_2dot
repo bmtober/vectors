@@ -1,4 +1,6 @@
-. assert
+. assertion
+
+[[ -d results ]] || mkdir results
 
 echo "Testing 2dot"
 ../2dot data/2dot.dat > results/2dot.1
