@@ -1,0 +1,17 @@
+
+success_count=0
+failure_count=0
+
+function assert {
+    local pass
+    eval "$@" || pass=1
+
+    if [[ -z "${pass}" ]]
+    then
+        success_count="$(expr "$success_count" + 1)"
+        echo "PASSED: $*"
+    else
+        failure_count="$(expr "$failure_count" + 1)"
+        echo "FAILED: $*"
+    fi
+}
