@@ -1,0 +1,79 @@
+#!/bin/bash
+
+me=$(basename $0)
+
+usage="
+
+NAME
+  ${me} - computes the power set of a set.
+
+SYNOPSIS
+  ${me} [OPTIONS] datafile
+  ${me} < datafile
+  cat datafile | ${me} 
+
+DESCRIPTION
+  ${me} reads one item per line of stdin and then outputs on stdout the
+  power set.
+
+OPTIONS
+  -h  Displays help message.
+
+AUTHOR
+  Berend M. Tober
+
+"
+
+n=0
+tmpfile1="$$.1.tmp"
+tmpfile2="$$.2.tmp"
+trap 'rm "${tmpfile1}" "${tmpfile2}"' EXIT
+touch "${tmpfile1}" "${tmpfile2}"
+echo ""
+
+infile="-"
+
+while [[ $# -gt 0 ]]
+do
+  case "${1}" in
+    -h)
+      echo "${usage}"
+      exit
+      ;;
+    -*)
+      echo "Invalid option '${1}'"
+      exit
+      ;;
+  esac
+  infile="${1--}"
+  shift
+done  
+
+cat "${infile}" | while read f
+do
+  cat "${tmpfile1}" | while read g
+  do
+    echo -e "${f}\t${g}" | tee -a "${tmpfile2}"
+  done
+
+  echo "${f}" | tee -a "${tmpfile1}"
+  cat "${tmpfile2}" >> "${tmpfile1}"
+  > "${tmpfile2}"
+done
+
+exit 
+
+p() {
+    (
+      shift
+      p "$@"
+    ) | while read r
+        do 
+          echo -e "$1 $r\n$r"
+        done
+}
+
+cat "${infile}" | p
+
+exit
+

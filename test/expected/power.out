@@ -1,0 +1,16 @@
+
+milk
+bread	milk
+bread
+eggs	milk
+eggs	bread
+eggs	bread	milk
+eggs
+juice	milk
+juice	bread
+juice	bread	milk
+juice	eggs
+juice	eggs	milk
+juice	eggs	bread
+juice	eggs	bread	milk
+juice
