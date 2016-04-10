@@ -1,16 +1,16 @@
-
 milk
 bread	milk
 bread
 eggs	milk
-eggs	bread
 eggs	bread	milk
+eggs	bread
 eggs
 juice	milk
-juice	bread
 juice	bread	milk
-juice	eggs
+juice	bread
 juice	eggs	milk
-juice	eggs	bread
 juice	eggs	bread	milk
+juice	eggs	bread
+juice	eggs
 juice
+
