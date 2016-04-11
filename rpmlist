@@ -1,0 +1,4 @@
+#!/bin/bash
+
+date +"%F %T"
+rpm -qa --queryformat "%{name}\n" | sort 
