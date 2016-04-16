@@ -1,0 +1,24 @@
+. assertion
+
+[[ -d results ]] || mkdir results
+
+echo "Testing body"
+
+../body data/body.dat > results/body.1
+../body < data/body.dat > results/body.1
+cat data/body.dat | ../body > results/body.1
+../body -s 3 data/body.dat > results/body.2
+../body -s 3 -e 5 data/body.dat > results/body.3
+
+
+
+echo
+assert 'diff expected/body.1 results/body.1 &> /dev/null'
+assert 'diff expected/body.1 results/body.1 &> /dev/null'
+assert 'diff expected/body.1 results/body.1 &> /dev/null'
+assert 'diff expected/body.2 results/body.2 &> /dev/null'
+assert 'diff expected/body.3 results/body.3 &> /dev/null'
+
+echo
+echo "PASS: ${success_count}"
+echo "FAIL: ${failure_count}"
