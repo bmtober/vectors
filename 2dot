@@ -56,7 +56,7 @@ done
 
 tmpfile="${me}.$$"
 
-trap 'rm "${tmpfile}"' exit
+trap 'rm "${tmpfile}"' EXIT
 
 cat "${infile}" | tee "${tmpfile}" | tsort | awk '
 BEGIN {
