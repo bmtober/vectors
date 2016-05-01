@@ -17,7 +17,11 @@ DESCRIPTION
 OPTIONS
   -h  Displays help message.
 
+  -d  Delimiter. Tab is the default.
+
 "
+
+delimiter=$'\t'
 
 while [[ "${#}" -gt 0 ]]
 do
@@ -26,12 +30,19 @@ do
       echo "${usage}"
       exit
       ;;
+    -d)
+      delimiter="${2}"
+      shift
+      ;;
     -*)
       echo "Invalid option '${1}'"
       exit
       ;;
+    *)
+      infile="${1}"
+      shift
+      ;;
   esac
-  infile="${1}"
   shift
 done
 
@@ -58,7 +69,7 @@ head -n $n "${infile}" | while read item
 do
   tail -n $n "${infile}" | while read other 
   do
-    printf "%s\t%s\n" "${item}" "${other}"
+    printf "%s%s%s\n" "${item}" "${delimiter}" "${other}"
   done
   (( n-- ))
 done
