@@ -33,16 +33,21 @@ then
   exit
 fi
 
-tmpfile="${me}.$$"
+cat $1 $2 | sort -k 2 | awk '
+  BEGIN {
+    s = 0
+    a = ""
+  }
 
-mkfifo "${tmpfile}.1"
-mkfifo "${tmpfile}.2"
-mkfifo "${tmpfile}.3"
+  a == "" {a = $2}
+  $2 == a {s = s + $1}
+  $2 != a {
+      print s, a
+      s = $1
+      a = $2 
+  }
+END {
+      print s, a
+}
+' 
 
-trap 'rm "${tmpfile}."?' EXIT
-
-join -j2     ${1} ${2} | awk '{print $2+$3, $1}' > "${tmpfile}.1" &
-join -j2 -v1 ${1} ${2} | awk '{print $2, $1}'    > "${tmpfile}.2" &
-join -j2 -v2 ${1} ${2} | awk '{print $2, $1}'    > "${tmpfile}.3" &
-
-cat "${tmpfile}."{1,2,3} | sort -k2
