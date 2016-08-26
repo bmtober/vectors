@@ -1,0 +1,18 @@
+. assertion
+
+[[ -d results ]] || mkdir results
+
+echo "Testing vtotal script"
+
+../vtotal  data/v1.dat  > results/vtotal1.out
+../vtotal  data/v2.dat  > results/vtotal2.out
+cat data/v1.dat | ../vtotal > results/vtotal3.out
+
+echo
+assert 'diff expected/vtotal1.out results/vtotal1.out &> /dev/null'
+assert 'diff expected/vtotal2.out results/vtotal2.out &> /dev/null'
+assert 'diff expected/vtotal3.out results/vtotal3.out &> /dev/null'
+
+echo
+echo "PASS: ${success_count}"
+echo "FAIL: ${failure_count}"
