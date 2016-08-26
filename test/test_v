@@ -6,9 +6,7 @@ echo "Testing vector scripts"
 
 ../vdot  data/v1.dat data/v2.dat  > results/v.out 
 ../vdot  data/v1.dat data/v1.dat >> results/v.out 
-../vmag  data/v1.dat             >> results/v.out 
 ../vdot  data/v2.dat data/v2.dat >> results/v.out 
-../vmag  data/v2.dat             >> results/v.out 
 ../vsum  data/v1.dat data/v2.dat >> results/v.out 
 ../vdiff data/v1.dat data/v2.dat >> results/v.out 
 ../vdiff data/v2.dat data/v1.dat >> results/v.out 
