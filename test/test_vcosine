@@ -1,0 +1,29 @@
+. assertion
+
+[[ -d results ]] || mkdir results
+
+echo "Testing vcosine script"
+
+touch .vcosine1.$$
+touch .vcosine2.$$
+
+trap 'rm .vcosine1.$$ .vcosine2.$$' EXIT
+
+echo "1 x" >  .vcosine1.$$
+echo "0 y" >> .vcosine1.$$
+
+echo "1 x" >  .vcosine2.$$
+echo "1 y" >> .vcosine2.$$
+
+../vcosine  data/v1.dat data/v2.dat     > results/vcosine1.out
+../vcosine  data/vzero/dat data/v2.dat  > results/vcosine2.out
+../vcosine  .vcosine1.$$ .vcosine2.$$   > results/vcosine3.out
+
+echo
+assert 'diff expected/vcosine1.out results/vcosine1.out &> /dev/null'
+assert 'diff expected/vcosine2.out results/vcosine2.out &> /dev/null'
+assert 'diff expected/vcosine3.out results/vcosine3.out &> /dev/null'
+
+echo
+echo "PASS: ${success_count}"
+echo "FAIL: ${failure_count}"
