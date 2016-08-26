@@ -1,0 +1,39 @@
+#!/bin/bash
+
+me=$(basename $0)
+
+usage="
+NAME
+  ${me} - Computes tf-idf
+
+SYNOPSIS
+  ${me} m tfvector dfvector
+
+DESCRIPTION
+  ${me} Computes tf-idf given the number document and  a tf vector and a
+  df vector. The input vector files must be lines of ordered pairs, sorted
+  by the second element, and where the first element of each pair is the
+  magnitude, and the second element of each pair is the dimension name.
+  This allows for arbitrary vector spaces with points specified sparsely.
+
+  For example, a vector file may appear as follows:
+
+    3 x
+    4 y
+    5 z
+
+  for a vector with components x=3, y=4, and z=5.
+ 
+"
+
+if [[ ${#} -lt 3 ]]
+then
+  echo "${usage}"
+  exit
+fi
+
+m=${1}
+
+join -j2  "${2}" "${3}"| \
+  awk -v m=$m '{printf("%f %s\n", $2*log(m/$3), $1)}'
+
