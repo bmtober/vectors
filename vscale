@@ -33,6 +33,6 @@ then
 fi
 
 cat $2 | awk -v s="$1" '
-  {print s*$1, $2}
+  {printf("%f %s\n", s*$1, $2)}
 ' 
 
