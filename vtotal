@@ -26,13 +26,24 @@ DESCRIPTION
  
 "
 
-if [[ ${#} -lt 1 ]]
-then
-  echo "${usage}"
-  exit
-fi
+while [[ $# -gt 0 ]]
+do
+  case "${1}" in
+    -h)
+      echo "${usage}"
+      exit
+      ;;
+    -*)
+      echo "Invalid option '${1}'"
+      exit
+      ;;
+  esac
+  infile="${1--}"
+  shift
+done  
 
-cat $1 | awk '
+
+cat ${infile} | awk '
   BEGIN {s = 0}
   {s = s + $1}
   END {print s}
