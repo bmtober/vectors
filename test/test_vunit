@@ -1,0 +1,18 @@
+. assertion
+
+[[ -d results ]] || mkdir results
+
+echo "Testing vunit script"
+
+../vunit  data/v1.dat  > results/vunit1.out
+../vunit  data/v2.dat  > results/vunit2.out
+cat data/v1.dat | ../vunit > results/vunit3.out
+
+echo
+assert 'diff expected/vunit1.out results/vunit1.out &> /dev/null'
+assert 'diff expected/vunit2.out results/vunit2.out &> /dev/null'
+assert 'diff expected/vunit3.out results/vunit3.out &> /dev/null'
+
+echo
+echo "PASS: ${success_count}"
+echo "FAIL: ${failure_count}"

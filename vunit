@@ -1,0 +1,51 @@
+#!/bin/bash
+
+me=$(basename $0)
+
+usage="
+NAME
+  ${me} - Generate a unit vector.
+
+SYNOPSIS
+  ${me} vector
+
+DESCRIPTION
+  ${me} given a vector outputs a vector where each component is length
+  one. The input vector file must be lines of ordered pairs, sorted by
+  the second element, and where the first element of each pair is the
+  magnitude, and the second element of each pair is the dimension name.
+  This allows for arbitrary vector spaces with points specified sparsely.
+
+  For example, a vector file may appear as follows:
+
+    3 x
+    4 y
+    5 z
+
+  for a vector with components x=3, y=4, and z=5.
+ 
+"
+
+while [[ $# -gt 0 ]]
+do
+  case "${1}" in
+    -h)
+      echo "${usage}"
+      exit
+      ;;
+    -*)
+      echo "Invalid option '${1}'"
+      exit
+      ;;
+  esac
+  infile="${1--}"
+  shift
+done  
+
+
+cat ${infile} | awk '
+# create a unit vector (length one in each dimension direction)
+{print 1,$2}
+' 
+
+
