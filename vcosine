@@ -37,11 +37,4 @@ dotproduct=$(vdot ${1} ${2})
 magnitude1=$(vmag ${1})
 magnitude2=$(vmag ${2})
   
-if [[ "$dotproduct" == 0 ]]
-then
-  echo "0"
-else  
-  bc -l <<< "$dotproduct/($magnitude1 * $magnitude2)"
-fi  
-
-
+echo "${dotproduct} ${magnitude1} ${magnitude2}" | awk '{print $2*$3 ? $1/($2*$3) : 0}'
