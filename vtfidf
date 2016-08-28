@@ -26,6 +26,14 @@ DESCRIPTION
  
 "
 
+[ -n "${1}" ] && m="${1}"
+[ -n "${2}" ] && tfvector="${2}"
+[ -n "${3}" ] && dfvector="${3}"
+
+: ${m?}
+: ${tfvector?}
+: ${dfvector?}
+
 if [[ ${#} -lt 3 ]]
 then
   echo "${usage}"
