@@ -4,9 +4,9 @@
 
 echo "Testing vdim script"
 
-../vdim  data/v1.dat  > results/vdim1.out
-../vdim  data/v2.dat  > results/vdim2.out
-cat data/v[1,2].dat | ../vdim > results/vdim3.out
+vdim  data/v1.dat  > results/vdim1.out
+vdim  data/v2.dat  > results/vdim2.out
+cat data/v[1,2].dat | vdim > results/vdim3.out
 
 echo
 assert 'diff expected/vdim1.out results/vdim1.out &> /dev/null'

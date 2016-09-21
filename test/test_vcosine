@@ -16,12 +16,12 @@ echo "0 y" >> .vcosine1.$$
 echo "1 x" >  .vcosine2.$$
 echo "1 y" >> .vcosine2.$$
 
-../vunit data/v1.dat > ".vcosine3.$$"
+vunit data/v1.dat > ".vcosine3.$$"
 
-../vcosine  data/v1.dat    data/v2.dat  > results/vcosine1.out
-../vcosine  data/vzero.dat data/v2.dat  > results/vcosine2.out
-../vcosine  .vcosine1.$$   .vcosine2.$$ > results/vcosine3.out
-../vcosine  data/v1.dat    .vcosine3.$$ > results/vcosine4.out
+vcosine  data/v1.dat    data/v2.dat  > results/vcosine1.out
+vcosine  data/vzero.dat data/v2.dat  > results/vcosine2.out
+vcosine  .vcosine1.$$   .vcosine2.$$ > results/vcosine3.out
+vcosine  data/v1.dat    .vcosine3.$$ > results/vcosine4.out
 
 echo
 assert 'diff expected/vcosine1.out results/vcosine1.out &> /dev/null'

@@ -4,8 +4,8 @@
 
 echo "Testing vmag script"
 
-../vmag  data/v1.dat  > results/vmag1.out
-../vmag  data/v2.dat  > results/vmag2.out
+vmag  data/v1.dat  > results/vmag1.out
+vmag  data/v2.dat  > results/vmag2.out
 
 echo
 assert 'diff expected/vmag1.out results/vmag1.out &> /dev/null'

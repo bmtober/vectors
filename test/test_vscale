@@ -4,9 +4,9 @@
 
 echo "Testing vector scripts"
 
-../vscale  1    data/v1.dat  > results/vscale1.out
-../vscale -1    data/v1.dat  > results/vscale2.out
-../vscale  0.99 data/v1.dat  > results/vscale3.out
+vscale  1    data/v1.dat  > results/vscale1.out
+vscale -1    data/v1.dat  > results/vscale2.out
+vscale  0.99 data/v1.dat  > results/vscale3.out
 
 echo
 assert 'diff expected/vscale1.out results/vscale1.out &> /dev/null'

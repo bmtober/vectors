@@ -4,9 +4,9 @@
 
 echo "Testing vunit script"
 
-../vunit  data/v1.dat  > results/vunit1.out
-../vunit  data/v2.dat  > results/vunit2.out
-cat data/v1.dat | ../vunit > results/vunit3.out
+vunit  data/v1.dat  > results/vunit1.out
+vunit  data/v2.dat  > results/vunit2.out
+cat data/v1.dat | vunit > results/vunit3.out
 
 echo
 assert 'diff expected/vunit1.out results/vunit1.out &> /dev/null'
