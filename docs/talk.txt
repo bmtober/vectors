@@ -41,4 +41,49 @@ An ordered tuple. Each component has a magnitude and a coordinate direction.
 ..................................................
 ..................................................
 
+== Confusion Matrix
+
+[cols="4*^.^", width="60%"]
+|======================
+2.2+| 2+|Predicted Class 
+|Negative|Postive
+.2+|Actual Class|Negative|$m_(00)$|$m_(01)$
+|Postive |$m_(10)$ |$m_(11)$
+|======================
+
+.Note 
+
+$m_(ij)$ is the number of messages actually in class $i$ and identified as class $j$
+
+$i=j$ implies correct classification
+
+$i!=j$ implies incorrect classification
+
+$m_(00)$ = True Negative
+
+$m_(10)$ = False Negative
+
+$m_(11)$ = True Postive
+
+$m_(01)$ = False Postive
+
+
+== Precision and Recall
+
+..................................................
+Precision: how useful the search results are
+
+$text{Pr} =  (m_(11))/(m_(11) + m_(01))$
+
+
+Recall: how complete the results are
+
+$text{Re} = (m_(11))/(m_(11) + m_(10))$
+..................................................
+
+== Accuracy
+
+$ A = (m_(00) + m_(11))/(m_(00) + m_(01) + m_(10) + m_(11)) $
+
+
 
