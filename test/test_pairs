@@ -1,3 +1,6 @@
+which pairs &> /dev/null
+[ "$?" -ne 0 ] && echo "'pairs' not found" && exit
+
 . assertion
 
 [[ -d results ]] || mkdir results

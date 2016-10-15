@@ -1,0 +1,19 @@
+which vdot &> /dev/null
+[ "$?" -ne 0 ] && echo "'vdot' not found" && exit
+
+. assertion
+
+[[ -d results ]] || mkdir results
+
+echo "Testing vector scripts"
+
+vdot  data/v1.dat data/v2.dat  > results/vdot.out 
+vdot  data/v1.dat data/v1.dat >> results/vdot.out 
+vdot  data/v2.dat data/v2.dat >> results/vdot.out 
+
+echo
+assert 'diff expected/vdot.out results/vdot.out &> /dev/null'
+
+echo
+echo "PASS: ${success_count}"
+echo "FAIL: ${failure_count}"

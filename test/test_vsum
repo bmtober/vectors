@@ -1,0 +1,17 @@
+which vsum &> /dev/null
+[ "$?" -ne 0 ] && echo "'vsum' not found" && exit
+
+. assertion
+
+[[ -d results ]] || mkdir results
+
+echo "Testing vector scripts"
+
+vsum  data/v1.dat data/v2.dat > results/vsum.out 
+
+echo
+assert 'diff expected/vsum.out results/vsum.out &> /dev/null'
+
+echo
+echo "PASS: ${success_count}"
+echo "FAIL: ${failure_count}"

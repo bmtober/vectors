@@ -1,3 +1,6 @@
+which vmag &> /dev/null
+[ "$?" -ne 0 ] && echo "'vmag' not found" && exit
+
 . assertion
 
 [[ -d results ]] || mkdir results

@@ -1,3 +1,6 @@
+which vtotal &> /dev/null
+[ "$?" -ne 0 ] && echo "'vtotal' not found" && exit
+
 . assertion
 
 [[ -d results ]] || mkdir results

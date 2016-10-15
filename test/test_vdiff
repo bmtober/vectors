@@ -1,0 +1,19 @@
+which vdiff &> /dev/null
+[ "$?" -ne 0 ] && echo "'vdiff' not found" && exit
+
+. assertion
+
+[[ -d results ]] || mkdir results
+
+echo "Testing vector scripts"
+
+vdiff data/v1.dat data/v2.dat  > results/vdiff.out 
+vdiff data/v2.dat data/v1.dat >> results/vdiff.out 
+vdiff data/v1.dat data/v1.dat >> results/vdiff.out 
+
+echo
+assert 'diff expected/vdiff.out results/vdiff.out &> /dev/null'
+
+echo
+echo "PASS: ${success_count}"
+echo "FAIL: ${failure_count}"
