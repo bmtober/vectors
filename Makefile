@@ -1,6 +1,6 @@
 SRCSDIR:=src
 DOCSDIR:=docs
-TESTDIR:=$(TESTDIR)
+TESTDIR:=test
 SOURCES:=$(wildcard $(SRCSDIR)/*)
 SOURCES:=$(notdir $(SOURCES))
 PREFIX?=/usr/local/bin

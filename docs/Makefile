@@ -17,3 +17,8 @@ $(OBJECTS): $(SOURCES)
 %.png: %.dot
 	dot -Tpng $< > $@
 
+clean-recursive: clean
+	$(MAKE) -C pic clean-recursive
+	
+clean:
+	-rm *.adoc *.html

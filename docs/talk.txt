@@ -30,7 +30,7 @@ $ bar x = bar u uu bar v = {(x_i, a_i) | a_i in text\{attr\}(bar u) or a_i in te
 
 $ bar w = cc"A"(bar x) = {(w_i,a_i)| w_i = sum_(j in {j|a_j = a_i}) x_j} $
 
-=== Attribute
+=== Attributes
 
 $ text\{attr\}(bar x) = {a_1, a_2, ..., a_n} $
 
@@ -46,7 +46,7 @@ $ bar u = alpha xx bar v = {(u_i, a_i)| u_i = alpha v_i, a_i in text\{attr\}(bar
 
 == Dot Product
 
-$ bar w = bar u * bar v = cc"M"(bar u nn bar v) $
+$ bar u * bar v = cc"M"(bar u nn bar v) $
 
 === Intersection
 
@@ -54,13 +54,16 @@ $ bar x = bar u nn bar v ={(x_i, a_i)| a_i in text\{attr\}(bar u) and a_i in tex
 
 === Aggregation
 
-$ bar w = cc"M"(bar x) = {(x_i,a_i)| x_i = prod_(j in {j|a_j = a_i}) x_j} $
+$ cc"M"(bar x) = sum_i x_i, x_i in {x_i| x_i = prod_(j in {j|a_j = a_i}) x_j} $
 ..................................................
 ..................................................
 
 
 == Magnitude
 
+$ |bar v| = sqrt(bar v * bar v) 
+  
+  
 ..................................................
 ..................................................
 
