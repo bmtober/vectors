@@ -7,7 +7,7 @@ A set of ordered pairs.
 
 $ bar x = {(x_1, a_1), (x_2, a_2), ..., (x_n, a_n)} $
 
-Each ordered pair has a scale value, $x_i in cc"R" $ and an attribute
+Each ordered pair has a quantity value, $x_i in cc"R" $ and an attribute
 identifier, $a_i$, sometimes called a dimension.
 
 A common short-hand is to omit the attribute identifier and just list the
@@ -18,13 +18,21 @@ $ bar x = [x_1, x_2, ..., x_n] $
 ..................................................
 ..................................................
 
-== Consolidation Operator
-
-$ fr"C"(bar x) = {(x_i,a_i)| x_i = sum_(j={j|a_j = a_i}) x_j} $
-
 == Vector Addition
 
-$ bar x = bar u + bar v = fr"C"(bar u uu bar v) = fr"C"({(x_i, a_i) | a_i in text\{attr\}(bar u) or a_i in text\{attr\}(bar v), x_i = u_i + v_i }) $ 
+$ bar x = bar u + bar v = cc"A"(bar u uu bar v) $
+
+=== Union
+
+$ bar u uu bar v = {(x_i, a_i) | a_i in text\{attr\}(bar u) or a_i in text\{attr\}(bar v)} $ 
+
+=== Aggregation Operator
+
+$ cc"A"(bar x) = {(x_i,a_i)| x_i = sum_(j in {j|a_j = a_i}) x_j} $
+
+=== Attribute Operator
+
+$ text\{attr\}(bar x) = {a_1, a_2, ..., a_n} $
 
 ..................................................
 ..................................................
@@ -32,6 +40,7 @@ $ bar x = bar u + bar v = fr"C"(bar u uu bar v) = fr"C"({(x_i, a_i) | a_i in tex
 
 == Multiplication by a Scalar
 
+$ bar u = alpha xx bar v = {(u_i, a_i)| u_i = alpha v_i, a_i in text\{attr\}(bar v)} $
 
 
 == Difference
