@@ -1,0 +1,19 @@
+which vattr &> /dev/null
+[ "$?" -ne 0 ] && echo "'vattr' not found" && exit
+
+. assertion
+
+[[ -d results ]] || mkdir results
+
+echo "Testing vector scripts"
+
+vattr  data/v1.dat > results/vattr1.out 
+vattr  data/v2.dat > results/vattr2.out 
+
+echo
+assert 'diff expected/vattr1.out results/vattr1.out &> /dev/null'
+assert 'diff expected/vattr2.out results/vattr2.out &> /dev/null'
+
+echo
+echo "PASS: ${success_count}"
+echo "FAIL: ${failure_count}"
