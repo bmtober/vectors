@@ -1,5 +1,5 @@
 SRCSDIR:=src
-DOCSDIR:=$(DOCSDIR)
+DOCSDIR:=docs
 TESTDIR:=$(TESTDIR)
 SOURCES:=$(wildcard $(SRCSDIR)/*)
 SOURCES:=$(notdir $(SOURCES))
