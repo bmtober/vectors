@@ -7,11 +7,12 @@ A set of ordered pairs.
 
 $ bar x = {(x_1, a_1), (x_2, a_2), ..., (x_n, a_n)} $
 
-Each ordered pair has a quantity value, $x_i in cc"R" $ and an attribute
-identifier, $a_i$, sometimes called a dimension.
+Each ordered pair has a quantity, $x_i$ and an attribute identifier,
+$a_i$, sometimes called a dimension.
 
-A common short-hand is to omit the attribute identifier and just list the
-scale values as an n-tuple, assuming a consistent order of the attributes:
+A common short-hand is to omit the attribute identifier and just list
+the quantity values as an n-tuple, assuming a consistent order of the
+attributes:
 
 $ bar x = [x_1, x_2, ..., x_n] $
 
@@ -20,15 +21,9 @@ $ bar x = [x_1, x_2, ..., x_n] $
 
 == Vector Addition
 
-$ bar w = bar u + bar v = cc"A"(bar u uu bar v) $
-
-=== Union
-
-$ bar x = bar u uu bar v = {(x_i, a_i) | a_i in text\{attr\}(bar u) or a_i in text\{attr\}(bar v)} $ 
-
-=== Aggregation Operator
-
-$ bar w = cc"A"(bar x) = {(w_i,a_i)| w_i = sum_(j in {j|a_j = a_i}) x_j} $
+$ bar w = bar u + bar v = {(w_i, a_i) | 
+  w_i = u_i + v_i\ text\{for\}\ a_i in text\{attr\}(bar u)\ text\{or\}\ a_i in text\{attr\}(bar v)}
+  $ 
 
 === Attributes
 
@@ -46,15 +41,9 @@ $ bar u = alpha xx bar v = {(u_i, a_i)| u_i = alpha v_i, a_i in text\{attr\}(bar
 
 == Dot Product
 
-$ bar u * bar v = cc"M"(bar u nn bar v) $
+$ bar w = bar u * bar v = {(w_i, a_i) | w_i = u_i xx v_i\ text\{for\}\ a_i in text\{attr\}(bar u)\ text\{and\}\ a_i in text\{attr\}(bar v)} $ 
 
-=== Intersection
 
-$ bar x = bar u nn bar v ={(x_i, a_i)| a_i in text\{attr\}(bar u) and a_i in text\{attr\}(bar v)} $
-
-=== Aggregation
-
-$ cc"M"(bar x) = sum_i x_i, x_i in {x_i| x_i = prod_(j in {j|a_j = a_i}) x_j} $
 ..................................................
 ..................................................
 

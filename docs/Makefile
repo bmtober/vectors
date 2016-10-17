@@ -1,12 +1,12 @@
 
-TARGETS = talk.html
+TARGETS:=talk.html
 
-OBJECTS = $(TARGETS:%.html=%.adoc)
+OBJECTS:=$(TARGETS:%.html=%.adoc)
 
-SOURCES = header.txt talk.txt
+SOURCES:=header.txt talk.txt
 
 
-docs: $(TARGETS)
+all: $(TARGETS)
 
 $(OBJECTS): $(SOURCES)
 	cat $+ > $@
