@@ -19,7 +19,7 @@ echo "0 y" >> .vcosine1.$$
 echo "1 x" >  .vcosine2.$$
 echo "1 y" >> .vcosine2.$$
 
-vunit data/v1.dat > ".vcosine3.$$"
+vsimplex data/v1.dat > ".vcosine3.$$"
 
 vcosine  data/v1.dat    data/v2.dat  > results/vcosine1.out
 vcosine  data/vzero.dat data/v2.dat  > results/vcosine2.out

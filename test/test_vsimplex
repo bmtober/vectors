@@ -1,0 +1,21 @@
+which vsimplex &> /dev/null
+[ "$?" -ne 0 ] && echo "'vsimplex' not found" && exit
+
+. assertion
+
+[[ -d results ]] || mkdir results
+
+echo "Testing vsimplex script"
+
+vsimplex  data/v1.dat  > results/vsimplex1.out
+vsimplex  data/v2.dat  > results/vsimplex2.out
+cat data/v1.dat | vsimplex > results/vsimplex3.out
+
+echo
+assert 'diff expected/vsimplex1.out results/vsimplex1.out &> /dev/null'
+assert 'diff expected/vsimplex2.out results/vsimplex2.out &> /dev/null'
+assert 'diff expected/vsimplex3.out results/vsimplex3.out &> /dev/null'
+
+echo
+echo "PASS: ${success_count}"
+echo "FAIL: ${failure_count}"
