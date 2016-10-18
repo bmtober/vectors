@@ -1,0 +1,19 @@
+which vunit &> /dev/null
+[ "$?" -ne 0 ] && echo "'vunit' not found" && exit
+
+. assertion
+
+[[ -d results ]] || mkdir results
+
+echo "Testing vunit script"
+
+vunit  a  > results/vunit1.out
+vunit  b  > results/vunit2.out
+
+echo
+assert 'diff expected/vunit1.out results/vunit1.out &> /dev/null'
+assert 'diff expected/vunit2.out results/vunit2.out &> /dev/null'
+
+echo
+echo "PASS: ${success_count}"
+echo "FAIL: ${failure_count}"
