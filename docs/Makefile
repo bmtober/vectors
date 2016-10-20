@@ -1,10 +1,7 @@
 
 TARGETS:=talk.html
-
 OBJECTS:=$(TARGETS:%.html=%.adoc)
-
 SOURCES:=header.txt talk.txt
-
 
 all: $(TARGETS)
 

@@ -21,9 +21,20 @@ $ bar x = [x_1, x_2, ..., x_n] $
 
 == Vector Addition
 
-$ bar w = bar u + bar v = {(w_i, a_i) | 
-  w_i = u_i + v_i\ text\{for\}\ a_i in text\{attr\}(bar u)\ text\{or\}\ a_i in text\{attr\}(bar v)}
-  $ 
+$ bar w = bar u + bar v $ 
+
+
+=== Defined in two steps:
+
+==== Union
+
+$ bar x= bar u uu bar v = {(u_i, a_i)|i=1,...,n} uu {(v_j, a_j)|j=1,...,n} $
+
+respecting any duplicates.
+
+==== Aggregation
+
+$ bar w = {(w_i, a_i)|w_i=sum_(a_j=a_i) x_j, a_i in text\{attr\}(bar x)} $
 
 === Attributes
 

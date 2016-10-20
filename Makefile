@@ -5,6 +5,8 @@ SOURCES:=$(wildcard $(SRCSDIR)/*)
 SOURCES:=$(notdir $(SOURCES))
 PREFIX?=/usr/local/bin
 
+.PHONY: all $(DOCSDIR) $(TESTDIR) install uninstall clean
+
 all:
 
 install:
@@ -14,7 +16,7 @@ uninstall:
 	echo $(SOURCES) | tr ' ' '\n' | xargs -I '{}' rm $(PREFIX)/{}
 
 $(DOCSDIR):
-	$(MAKE) -C $(DOCSDIR)
+	$(MAKE) -C $@\
 
 clean-recursive:
 	$(MAKE) -C $(DOCSDIR) clean-recursive
